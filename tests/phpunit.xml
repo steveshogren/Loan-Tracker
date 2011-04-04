@@ -1,0 +1,13 @@
+<phpunit
+    colors='true'
+    bootstrap="bootstrap.php"
+>
+<testsuites>
+    <testsuite name="My Test Suite">
+        <directory>.</directory>
+    </testsuite>
+</testsuites>
+<php>
+  <var name="testing" value="true"/>
+</php>
+</phpunit>

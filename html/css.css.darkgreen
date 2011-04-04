@@ -1,0 +1,286 @@
+.alert {
+    color:red;
+    /*text-decoration: blink;*/
+}
+
+.outerMain{
+    text-align:center;
+}
+
+.main {
+    margin-left:auto;
+    margin-right:auto;
+    text-align:left;
+    /*width:90%;*/
+    /*border:1px solid red;
+    color: #442511;*/
+}
+
+.content {
+    width:820px;
+    margin: 0 auto;
+}
+
+.tables {
+    float:left;
+    width:600px;
+    background-color: #d6ce83;
+    border:3px solid #936107;
+    margin:3px;
+    padding:3px;
+}
+
+#loginbar {
+    height: 21px;
+    text-align:right;
+    background-color:#3d4019;
+    margin: 0 auto;
+    width: 820px;
+}
+#body {
+    background:#555544 url(bg2.gif) repeat scroll 0 0;
+    padding:0px;
+    border: 0px;
+    margin:0px;
+}
+
+#heading {
+    margin: 0 auto;
+    width: 820px;
+    height:75px;
+    color:#936107;
+    background-color:#442511;
+    font-size: 2em;
+    vertical-align:text-top;;
+}
+
+#progBar {
+    padding-left:10px;
+    height: 650px;
+    float:right;
+}
+
+#sidestats {
+    width: 180px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border : 2px solid #a7a665;
+    background-color: #442511;
+}
+
+#sideheader {
+    border-bottom: 1px solid black;
+    font-weight:bold;
+    text-align:center;
+    font-size : 1.1em;
+    color : #AB9E2E;
+}
+
+#sidecontent {
+    padding-right: 5px;
+    padding-left: 5px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    color : #D6CE83;
+    font-size : 0.8em;
+    font-weight : bold;
+}
+
+.sidebarpayment {
+    font-size : 1em;
+    color: #ab9e2e;
+}
+
+.table {
+    float:left;
+    width:100%;
+    /*border:1px solid green;*/
+}
+.table th {
+    color:#442511;
+}
+.table .tabletext {
+    text-align:center;
+}
+
+.tables .divider {
+    float:left;
+    width:100%;
+    height:1px;
+    background-color:#442511;
+    margin-top:13px;
+    margin-bottom:6px;
+}
+.innerdivider {
+    text-align:center;
+    width:75%;
+}
+
+td {
+    background-color: #d6ce83;
+}
+
+.input_interest {
+    width: 40px;
+}
+
+.input_name {
+    width: 130px;
+}
+
+.input_amount {
+    width: 85px;
+}
+
+.input_goal {
+    width: 112px;
+}
+img.percentImage {
+     background: white url(images/percentImage_back.png) top left no-repeat;
+     padding: 0;
+     margin: 5px 0 0 0;
+     background-position: 1px 0;
+}
+
+a:link {color:#AB9E2E;}      /* unvisited link */
+a:visited {color:#AB9E2E;}  /* visited link */
+
+/*
+  +------------------------------------------------------------------+
+  | Green-Beast.com                                                  |
+  | MIX: Donations Gauge                                             |
+  | Cascading Style Sheet                                            |
+  | Copyright May 2006                                               |
+  | Use with attribution by visible link please!                     |
+  | Attribute to: <a href="http://green-beast.com/">Mike Cherim</a>  |
+  +------------------------------------------------------------------+
+*/
+
+/* this exists for one reason: the gauge and nogauge message need a home.
+   you can stack this box or float it or what have you. all of the other
+   elements are relative to the div so the div is all yours */
+div#cdg-shell {
+    /*background-color : #ffffdd;*/
+    background-color : #442511;
+    margin : auto;
+    width : 180px;
+    /*height : 340px;*/
+    hight: 300px;
+    display : block;
+    border:2px solid #A7A665;
+    /*border : 1px solid #666;*/
+    overflow : hidden;
+    /*float:right; sas*/
+}
+
+/* now we style the inner box when no funds are needed. grab the image
+   from: http://mikecherim.com/experiments/images/cdg_no_tmom.gif */
+div#cdg-noshell {
+  background : #442511;
+  width : 100%;
+  height : 310px;
+  display : block;
+}
+
+/* This styles the heading and the positions left both it second line (goal amount) */
+h2#cdg_h2, p#cdg_goal {
+  color : #AB9E2E;
+  font-size : 1.1em;
+  padding : 0;
+  margin-left : 5px;
+}
+
+/* but the styles for the second line need some tweaking */
+p#cdg_goal {
+  color : #D6CE83;
+  font-size : 0.8em;
+  font-weight : bold;
+  padding-bottom : 2px;
+}
+
+/* this holds the thermometer. The heigh of this box is critical to the functionality
+   I know, the crosshair is dumb, so shoot me. I like it :p
+   Please note: The thermometer body is an embedded image. If you change background
+   colors, you'll need to change that image. The opaque portions must stay that way.
+   Grab the image from: http://mikecherim.com/experiments/images/cdg_tmom.gif */
+div#cdg {
+  margin : 0;
+  width : 178px;
+  height : 300px;
+  display : block;
+  position : relative;
+  font-size : 0.8em;
+  border-right : 2px solid #888; /* this sort of "finishes" the embedded image */
+}
+
+/* this is the marker and we stick it to the bottom. In-line css margin-bottom is
+   adjusted by the script to move the marker... like magic. The background makes
+   it cover up the Goal amount line. Using absolute positioning for good not evil */
+p#cdg_p {
+  position : absolute;
+  background-color : #442511;
+  bottom : 0;
+  left : 5px;
+  color : #D6CE83;
+  z-index : 5;
+  border-bottom : 1px solid #AB9E2E;
+}
+
+/* this is so non-visual users will have the data presented to them in a logical
+   way not needed by those with the imagery */
+p#cdg_p span.blind {
+  position : absolute;
+  margin-top : -9000px;
+  margin-left : -9000px;
+}
+
+/* ah, the bold, red right-arrow (&rarr;)
+   FYI: The arrow isn't supported by browser < or = to IE 5.5 */
+p#cdg_p span.cdg_arw {
+  color : #AB9E2E;
+  font-weight : bold;
+}
+
+/* the mercury... I chose a slightly deeper red. it moves via script
+   as well like the marker, using margin-bottom */
+div#cdg_m {
+  position : absolute;
+  bottom : 0;
+  right : 0;
+  display : block;
+  width : 55px;
+  background-color : #cd0000;
+}
+
+/* I use this to position the image in the lower right to control mercury view */
+div#cdg img {
+  position : absolute;
+  bottom : 0;
+  right : 0;
+  display : block;
+  width : 60px;
+  height : 300px;
+}
+
+/* this is the no fundraiser text */
+p#cdg_no {
+  font-size : 0.8em;
+  font-weight : bold;
+  margin : 20px 15px;
+  line-height : 30px;
+  color : #D6CE83;
+}
+
+/* this is the no fundraiser link style (Contact Us) */
+p#cdg_no a {
+  color : #D6CE83;
+}
+
+/* and it hover and focus states */
+p#cdg_no a:hover, p#cdg_no a:focus, p#cdg_no a:active {
+  text-decoration : none;
+  color : #000;
+}
+
+
+/* End Styles */

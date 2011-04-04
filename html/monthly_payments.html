@@ -1,0 +1,41 @@
+<html>
+<head>
+<link href="monthly_payments.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+function delete(formName)
+{
+  document.formName.submit();
+}
+</script>
+</head>
+<body>
+back to <a href="index.php">Loan Summary</a>    
+<h1> 
+   Monthly Payments
+</h1>
+<table id="table">
+      <tr>
+	<th>
+	  Day of Month
+	</th>
+	<th>
+	  Title
+	</th>
+	<th>
+	  Amount (negative for payments)
+	</th>
+      </tr>
+<?php foreach ($MonthlyPayments as $MonthlyPayment){
+echo '<tr><form action="MonthlyPayments.php" method="post" name="' .$MonthlyPayment->getId() .'">';
+echo '<input type="hidden" name="monthlyPaymentId" value="' . $MonthlyPayment->getId() .'">';
+echo '<td><input id="input_day" type="text" name="day" value="' . $MonthlyPayment->getDayOfPayment() . '"></td>';
+echo '<td><input id="input_name" type="text" name="name" value="' . $MonthlyPayment->getName() . '"></td>';
+echo '<td><input id="input_amount" type="text" name="amount" value="' . $MonthlyPayment->getPayment() . '"></td>';
+echo '<td><input type="submit" name="Submit" value="Update"></td></tr>';
+}
+   
+?>
+    </table>
+
+</body>
+</html>

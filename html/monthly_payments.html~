@@ -1,0 +1,15 @@
+<html>
+<head>
+<link href="monthly_payments.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+function delete(formName)
+{
+  document.formName.submit();
+}
+</script>
+</head>
+<body>
+
+
+</body>
+</html>

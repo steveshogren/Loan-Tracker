@@ -1,0 +1,232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+    <title>Nautica X1 by STUDIO7DESIGNS</title>
+    <link href="html/stylesheet.css" rel="stylesheet" type="text/css" media="screen"/>
+    <SCRIPT LANGUAGE="Javascript">
+//        function decision(message, url){
+//            if(confirm(message)) location.href = url;
+//        }
+
+//        function delete(formName)
+//        {
+//            document.formName.submit();
+//        }
+
+</SCRIPT>
+</head>
+
+<body>
+<div class="main">
+<div class="header">
+    <div class="header-top">
+        <div class="search-box">
+            <!--<span></span>-->
+            <!--Break These Chains-->
+            <input name="textfield" type="text" class="search-input"/>
+        </div>
+        <div class="login-bg"><a href="#" class="white-link">Login</a> :: <a href="#" class="white-link">Site
+            map</a></div>
+    </div>
+    <div class="header-bottom">
+        <div id="navcontainer">
+            <ul class="navlist">
+                <li class="active"><a href="#">Visit</a></li>
+                <li class=""><a href="#">RSS</a></li>
+                <!--<li class=""><a href="#">Plan</a></li>-->
+                <!--<li class=""><a href="#">Share</a></li>-->
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="body-main">
+<!--<div class="site-name">Break These Chains</div>-->
+<div class="body-bottom">
+
+
+<div class="tables">
+
+
+<!--<div class="divider">-->
+    <!--<div class="innerdivider"></div>-->
+<!--</div>-->
+
+<?php
+                $displayLoans = false;
+                foreach ($Loans as $Loan) {
+                    if ($Loan->getId()) {
+$displayLoans = true;
+}
+}
+?>
+<table class="table">
+    <?php
+                if ($displayLoans) {
+                    echo '<tr>
+    <th>Loan Name</th>
+    <th>%</th>
+    <th class="table_interest_head">';
+        echo 'Interest
+    </th>
+    <th>Amount</th>
+    <th>Max</th>
+    </tr>';
+    }
+    ?>
+    <?php foreach ($Loans as $Loan){
+$totalLoanAmount += $Loan->getAmount();
+    $totalLoanMaxAmount += $Loan->getMaxAmount();
+    if ($Loan->getId()) {
+    $submitButtonText = 'Update';
+
+    echo '
+    <tr>
+        <form action="index.php" method="post" name="' . $Loan->getId() .'">';
+            echo '<input type="hidden" name="loanId" value="' . $Loan->getId() .'">';
+            echo '
+            <td class="tabletext"><input class="input_name" type="text" name="name"
+                                         value="' . $Loan->getName() . '"></td>
+            ';
+            echo '
+            <td class="tabletext"><img src="html/images/percentImage.png" alt="sup?"
+                                       class="percentImage" style="background-position: ';
+    echo (-120 - ($Loan->getPercentPaid()*-120)/100)+1 . 'px 0pt;"/></td>
+            ';
+            echo '
+            <td class="table_interest"><input class="input_interest" type="text" name="interest"
+                                              value="' . $Loan->getInterest() . '"></td>
+            ';
+            echo '
+            <td class="tabletext"><input class="input_amount" type="text" name="amount"
+                                         value="' . $Loan->getAmount() . '"></td>
+            ';
+            echo '
+            <td class="table_max_amount_text">' . number_format($Loan->getMaxAmount()) . '</td>
+            ';
+            echo '
+            <td class="tabletext"><input type="submit" name="Submit" value="' . $submitButtonText . '">
+            </td>
+            ';
+            echo '
+            <td class="tabletext"><input type="image" onclick="" src="html/images/Xion18x18.gif" alt="Angry face"
+                                         name="delete" value="delete"/></td>
+        </form>
+    </tr>
+    ';
+    }
+    echo '
+</table>';
+echo'<table class="table">';
+    }
+    ?>
+    <th>Create a New Loan</th>
+    <?php
+foreach ($Loans as $Loan){
+if (! $Loan->getId()) {
+    $submitButtonText = 'Create';
+
+    echo '
+    <tr>
+        <form action="index.php" method="post" name="' . $Loan->getId() .'">';
+            echo '<input type="hidden" name="loanId" value="' . $Loan->getId() .'">';
+            echo '
+            <td class="tabletext"><input class="input_name" type="text" name="name"
+                                         value="' . $Loan->getName() . '"></td>
+            ';
+            echo '
+            <td class="tabletext"><input class="input_new_interest" type="text" name="interest"
+                                         value="' . $Loan->getInterest() . '"></td>
+            ';
+            echo '
+            <td class="tabletext"><input class="input_new_amount" type="text" name="amount"
+                                         value="' . $Loan->getAmount() . '"></td>
+            ';
+            echo '
+            <td class="tabletext"><input class="input_new_amount" type="text" name="max_amount"
+                                         value="' . $Loan->getMaxAmount() . '"></td>
+            ';
+            echo '
+            <td class="tabletext"><input type="submit" name="Submit" value="' . $submitButtonText . '">
+            </td>
+            ';
+            echo '
+            <td class="tabletext"><input type="image" src="html/images/Xion18x18.gif" alt="Angry face"
+                                         name="delete" value="delete"/></td>
+        </form>
+    </tr>
+    ';
+    }
+    }
+
+    ?>
+</table>
+</div>
+
+
+<div class="login-box">
+    <!--<div align="left">Email Address: <br/></div>-->
+    <!--<div><input name="" type="text" class="input-login"/></div>-->
+    <!--<div align="left" style="padding:5px 0px;">Password: <br/></div>-->
+    <!--<div><input name="" type="password" class="input-login"/>-->
+
+    <!--<div style="padding:5px 0px;" align="center">-->
+    <!--<input type="checkbox" name="checkbox" value="checkbox"/>-->
+    <!--Remember Me-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div>-->
+    <!--<div align="center"><a href="#"><img src="html/images/login-bt.jpg" alt="Login" width="75" height="32"-->
+    <!--border="0"/></a><a href="#"><img src="html/images/sign-up-bt.jpg"-->
+    <!--alt="Sign Up" width="82"-->
+    <!--height="32" border="0"/></a>-->
+    <!--</div>-->
+    <!--</div>-->
+    <div id="sideheader">Payoff Stats</div>
+    <div id="sidecontent">
+        <p title='Interest saved based on a 10 year loan compounded monthly. Meant for motivation only!'>
+            $<?php echo (floor($paymentPerDay) * 7) ?>
+                    <span class="sidebarpayment">
+                        Avg. Per Week
+                    </span>
+            <br/>
+            $<?php echo (floor($paymentPerDay) * 30)?>
+                    <span class="sidebarpayment">
+                        Avg. Per Month
+                    </span>
+            <br/>
+            <!--<br/>-->
+            <?php
+                        if($PayoffCalc->getPayoffDate()) {
+            echo $PayoffCalc->getPayoffDate();
+            $payOffDateText = "Payoff Date<br/>";
+            }
+            ?>
+                    <span class="sidebarpayment">
+                        <?php echo $payOffDateText;?>
+                    </span>
+            <!--<br/>-->
+            $<?php
+                        $InterestSaved = $Factory->buildInterestSaved();
+            $totalSaved = number_format($InterestSaved->getTotalInterestSaved());
+            echo $totalSaved;
+            ?>
+                    <span class="sidebarpayment">
+                    Estimated Interest Saved
+                    </span>
+        </p>
+        <a href='index.php?reset=true'>Reset</a> Stats
+
+    </div>
+
+</div>
+<div class="login-boxprogbar">
+    <?php include "html/progress_bar/ProgBar2.php"; ?>
+</div>
+</div>
+</div>
+<div class="footer"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>My Loans</title>
+    <link href="html/css.css" rel="stylesheet" type="text/css">
+    <!--<script type="text/javascript">-->
+        <!--function delete(formName)-->
+        <!--{-->
+            <!--document.formName.submit();-->
+        <!--}-->
+    <!--</script>-->
+</head>
+<body id="body">
+<div id="loginbar">
+    <form action="index.php" method="post" name="logout">
+        <a href='index.php?logout=true'>Logout</a>
+    </form>
+</div>
+<div id="heading">Break These Chains</div>
+<div class="outerMain">
+    <div class="main">
+        <div class="content">
+            <div class="tables">
+                <div class="tableheader"></div>
+                <table class="table">
+                    <?php
+                    $accountToDisplay = false;
+                    foreach ($LoanAccounts as $Account) {
+                        if ($Account->getId()) {
+                    $accountToDisplay = true;
+                    }
+                    }
+                    if ($accountToDisplay) {
+                    echo '
+                    <tr>
+                        <th>Savings Name</th>
+                        <th>%</th>
+                        <th>Balance</th>
+                        <th>Goal</th>
+                    </tr>
+                    ';
+                    }
+                    foreach ($LoanAccounts as $Account) {
+                    $totalLoanAmount += $Account->getAmount();
+                    $totalLoanMaxAmount += $Account->getMaxAmount();
+                    if ($Account->getId()) {
+                    $submitButtonText = 'Update';
+                    echo '
+                    <tr>
+                        <form action="index.php" method="post" name="' . $Account->getId() .'">';
+                            echo '<input type="hidden" name="loanId" value="' . $Account->getId() .'">';
+                            echo '
+                            <td class="tabletext"><input class="input_name" type="text" name="name"
+                                                         value="' . $Account->getName() . '"></td>
+                            ';
+                            echo '
+                            <td class="tabletext"><img src="html/images/percentImage.png" alt="sup?"
+                                                       class="percentImage" style="background-position: ';
+    echo (-120 - ((100 - $Account->getPercentPaid())*-120)/100)+1 . 'px 0pt;"/></td>
+                            ';
+                            echo '
+                            <td class="tabletext"><input class="input_goal" type="text" name="amount"
+                                                         value="' . ($Account->getMaxAmount() - $Account->getAmount()) . '">
+                            </td>
+                            ';
+                            echo '
+                            <td class="tabletext"><input class="input_goal" type="text" name="max_amount"
+                                                         value="' . $Account->getMaxAmount() . '"></td>
+                            ';
+                            echo '<input type="hidden" name="savings" value="true">';
+                            echo '
+                            <td class="tabletext"><input type="submit" name="Submit" value="' . $submitButtonText . '">
+                            </td>
+                            ';
+                            echo '
+                            <td class="tabletext"><input type="image" src="html/images/Xion18x18.gif" alt="Angry face"
+                                                         name="delete" value="delete"/></td>
+                        </form>
+                    </tr>
+                    ';
+                    }
+                    }
+                    ?>
+                </table>
+
+                <table class="table">
+                    <tr>
+                        <th colspan=2 class="createAccount">Create A New Savings Account</th>
+                    </tr>
+                    <?php
+                    foreach ($LoanAccounts as $Account) {
+if (! $Account->getId()) {
+                    $submitButtonText = 'Create';
+                    $Account->setName('New Savings Name');
+                    echo '
+                    <tr>
+                        <form action="index.php" method="post" name="' . $Account->getId() .'">';
+                            echo '<input type="hidden" name="loanId" value="' . $Account->getId() .'">';
+                            echo '
+                            <td class="tabletext"><input class="input_name" type="text" name="name"
+                                                         value="' . $Account->getName() . '"></td>
+                            ';
+                            echo '
+                            <td class="tabletext"><input class="input_new_amount" type="text" name="amount"
+                                                         value="Current Balance"></td>
+                            ';
+                            echo '
+                            <td class="tabletext"><input class="input_new_amount" type="text" name="max_amount"
+                                                         value="Desired Amount"></td>
+                            ';
+                            echo '<input type="hidden" name="savings" value="true">';
+                            echo '
+                            <td class="tabletext"><input type="submit" name="Submit" value="' . $submitButtonText . '">
+                            </td>
+                            ';
+                            echo '
+                            <td class="tabletext"><input type="image" src="html/images/Xion18x18.gif" alt="Angry face"
+                                                         name="delete" value="delete"/></td>
+                        </form>
+                    </tr>
+                    ';
+                    }
+                    }
+                    ?>
+                </table>
+
+                <div class="divider">
+                    <div class="innerdivider"></div>
+                </div>
+
+                <?php
+                $displayLoans = false;
+                foreach ($Loans as $Loan) {
+                    if ($Loan->getId()) {
+                $displayLoans = true;
+                }
+                }
+                ?>
+                <table class="table">
+                    <?php
+                if ($displayLoans) {
+                    echo '<tr>
+                    <th>Loan Name</th>
+                    <th>%</th>
+                    <th class="table_interest_head">';
+                        echo 'Interest
+                    </th>
+                    <th>Amount</th>
+                    <th>Max</th>
+                    </tr>';
+                    }
+                    ?>
+                    <?php foreach ($Loans as $Loan){
+$totalLoanAmount += $Loan->getAmount();
+                    $totalLoanMaxAmount += $Loan->getMaxAmount();
+                    if ($Loan->getId()) {
+                    $submitButtonText = 'Update';
+
+                    echo '
+                    <tr>
+                        <form action="index.php" method="post" name="' . $Loan->getId() .'">';
+                            echo '<input type="hidden" name="loanId" value="' . $Loan->getId() .'">';
+                            echo '
+                            <td class="tabletext"><input class="input_name" type="text" name="name"
+                                                         value="' . $Loan->getName() . '"></td>
+                            ';
+                            echo '
+                            <td class="tabletext"><img src="html/images/percentImage.png" alt="sup?"
+                                                       class="percentImage" style="background-position: ';
+    echo (-120 - ($Loan->getPercentPaid()*-120)/100)+1 . 'px 0pt;"/></td>
+                            ';
+                            echo '
+                            <td class="table_interest"><input class="input_interest" type="text" name="interest"
+                                                              value="' . $Loan->getInterest() . '"></td>
+                            ';
+                            echo '
+                            <td class="tabletext"><input class="input_amount" type="text" name="amount"
+                                                         value="' . $Loan->getAmount() . '"></td>
+                            ';
+                            echo '
+                            <td class="table_max_amount_text">' . number_format($Loan->getMaxAmount()) . '</td>
+                            ';
+                            echo '
+                            <td class="tabletext"><input type="submit" name="Submit" value="' . $submitButtonText . '">
+                            </td>
+                            ';
+                            echo '
+                            <td class="tabletext"><input type="image" src="html/images/Xion18x18.gif" alt="Angry face"
+                                                         name="delete" value="delete"/></td>
+                        </form>
+                    </tr>
+                    ';
+                    }
+                    echo '
+                </table>
+                <table class="table">';
+                    }
+                    ?>
+                    <th>Create a New Loan</th>
+                    <?php
+foreach ($Loans as $Loan){
+if (! $Loan->getId()) {
+                    $submitButtonText = 'Create';
+
+                    echo '
+                    <tr>
+                        <form action="index.php" method="post" name="' . $Loan->getId() .'">';
+                            echo '<input type="hidden" name="loanId" value="' . $Loan->getId() .'">';
+                            echo '
+                            <td class="tabletext"><input class="input_name" type="text" name="name"
+                                                         value="' . $Loan->getName() . '"></td>
+                            ';
+                            echo '
+                            <td class="tabletext"><input class="input_new_interest" type="text" name="interest"
+                                                         value="' . $Loan->getInterest() . '"></td>
+                            ';
+                            echo '
+                            <td class="tabletext"><input class="input_new_amount" type="text" name="amount"
+                                                         value="' . $Loan->getAmount() . '"></td>
+                            ';
+                            echo '
+                            <td class="tabletext"><input class="input_new_amount" type="text" name="max_amount"
+                                                         value="' . $Loan->getMaxAmount() . '"></td>
+                            ';
+                            echo '
+                            <td class="tabletext"><input type="submit" name="Submit" value="' . $submitButtonText . '">
+                            </td>
+                            ';
+                            echo '
+                            <td class="tabletext"><input type="image" src="html/images/Xion18x18.gif" alt="Angry face"
+                                                         name="delete" value="delete"/></td>
+                        </form>
+                    </tr>
+                    ';
+                    }
+                    }
+
+                    ?>
+                </table>
+            </div>
+            <div id="progBar">
+                <div id="sidestats">
+                    <div id="sideheader">Payoff Stats</div>
+                    <div id="sidecontent">
+                        <p title='Interest saved based on a 10 year loan compounded monthly. Meant for motivation only!'>
+                            $<?php echo (floor($paymentPerDay) * 7) ?>
+                    <span class="sidebarpayment">
+                        Avg. Per Week
+                    </span>
+                            <br/>
+                            $<?php echo (floor($paymentPerDay) * 30)?>
+                    <span class="sidebarpayment">
+                        Avg. Per Month
+                    </span>
+                            <br/>
+                            <br/>
+                            <?php
+                        if($PayoffCalc->getPayoffDate()) {
+                            echo $PayoffCalc->getPayoffDate();
+                            $payOffDateText = "Payoff Date<br/>";
+                            }
+                            ?>
+                    <span class="sidebarpayment">
+                        <?php echo $payOffDateText;?>
+                    </span>
+                            <br/>
+                            $<?php
+                        $InterestSaved = $Factory->buildInterestSaved();
+                            $totalSaved = number_format($InterestSaved->getTotalInterestSaved());
+                            echo $totalSaved;
+                            ?>
+                    <span class="sidebarpayment">
+                    Estimated Interest Saved
+                    </span>
+                        </p>
+                        <a href='index.php?reset=true'>Reset</a> Stats
+
+                    </div>
+                </div>
+                <?php include "html/progress_bar/ProgBar.php"; ?>
+                <div id="sidestats">
+                    <div id="sideheader">Sort Order</div>
+                    <div id="sidecontent">
+                        <p title='Experts agree paying off highest interest loans first is the fastest payoff method, but some people prefer the snowball method for the immediate rewards.'>
+
+                        <form action="index.php" method="post" name="sort">
+                            <input type="submit" name="sortSnowball" value="Snowball">
+                            <input type="submit" name="sortDefault" value="Default">
+                        </form>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

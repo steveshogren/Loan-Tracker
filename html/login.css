@@ -1,0 +1,64 @@
+#loginbar {
+    height: 21px;
+    text-align:right;
+    border-top:3px solid #936107;
+    border-left:3px solid #936107;
+    border-right:3px solid #936107;
+    background-color:#442511; /*dark brown*/
+    margin: 0 auto;
+    width: 806px;
+    padding: 1px;
+}
+
+#heading {
+    margin: 0 auto;
+    width: 806px;
+    height:75px;
+    background-color:#442511; /*dark brown*/
+    /*background-color:#385E57;*/    /*dark blue*/
+    /*background-color:#D6CE83;*/     /*light tan*/
+    border-left:3px solid #936107;
+    border-right:3px solid #936107;
+    border-bottom:3px solid #936107;
+    /*color:#936107;*/   /*orange*/
+    /*color:#442511;*/ /*dark brown*/
+    /*color:#385E57;*/    /*dark blue*/
+    color:#D6CE83;    /*light tan*/
+    font-size: 2em;
+    vertical-align:text-top;;
+    text-align:center;
+    padding: 1px;
+}
+
+#body {
+    /*background:#555544 url(bg2.gif) repeat scroll 0 0;*/
+    background: #2F2E36;
+}
+#top_header {
+    height:5px;
+}
+
+#whole_form {
+    background-color:#D6CE83;
+    text-align:center;
+    width: 788px;
+    margin-left:auto;
+    margin-right:auto;
+    height: 100%;
+    border:3px solid #936107;
+    padding: 10px;
+}
+
+
+.textarea {
+    color: #442511;
+}
+
+.inputfields {
+    width: 70%;
+    text-align: right;
+}
+
+.error_message {
+    color:red;
+}
