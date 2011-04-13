@@ -7,35 +7,15 @@
         $(document).ready(function() {
             $('img.delete').bind('click', function(){
                 if (confirm('Do you really want to delete this loan?')) {
-//                $(this).closest('tr').hide('slow');
-//                    alert($(this).closest('td').attr("id")); // finds the loan id
                     $(this).closest('tr').animate({ height: 'hide', opacity: 'hide' }, 'slow');
                     $.post("deleteLoan.php", {loanId: $(this).closest('td').attr("id")},
                             function(xml) {
-//                                cdg_m\" style=\"height:".$margin_level."px\"
-                                // format and output result
-//                                alert($("marginLevel", xml).text());
-//                                alert($("totalLoanMaxAmount", xml).text());
-//                                alert($("totalLoanAmount", xml).text());
-//                                $("#cdg_m").attr('style' $("marginLevel", xml).text()
-//                                $("#cdg_m").attr('style', "height:5px");
                                 $("#cdg_m").animate({ height: $("marginLevel", xml).text()}, 'slow');
-//                                $("#goaltext").animate({ $(elem).css('marginRight'): $("marginLevel", xml).text()}, 'slow');
                                 $("#cdg_h2").html("Payoff Percentage: " + $("percentPaid", xml).text() + "%");
                             }
                     );
                 }
-//
-
-
             });
-//             $('table').mouseenter(function() {
-//                 $(this).addClass('selectedRow2');
-//                 $(this).children().addClass('selectedRow2');
-//             }).mouseleave(function() {
-//                 $(this).removeClass('selectedRow2');
-//                 $(this).children().removeClass('selectedRow2');
-//             });
         });
     </script>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
@@ -64,90 +44,70 @@
     </div>
 </div>
 <div class="body-main">
-<!--<div class="site-name">Break These Chains</div>-->
 <div class="body-bottom">
 
 
 <div class="tables">
 
-
-<!--<div class="divider">-->
-    <!--<div class="innerdivider"></div>-->
-<!--</div>-->
-
 <?php
-                $displayLoans = false;
-                foreach ($Loans as $Loan) {
-                    if ($Loan->getId()) {
-$displayLoans = true;
-}
-}
+    $displayLoans = false;
+    foreach ($Loans as $Loan) {
+        if ($Loan->getId()) {
+            $displayLoans = true;
+        }
+    }
 ?>
 <table class="table">
     <?php
-                if ($displayLoans) {
-                    echo '<tr>
-    <th>Loan Name</th>
-    <th>%</th>
-    <th class="table_interest_head">';
-        echo 'Interest
-    </th>
-    <th>Amount</th>
-    <th>Max</th>
-    </tr>';
-    }
+        if ($displayLoans) {
+            echo '<tr>';
+            echo '<th>Loan Name</th>';
+            echo '<th>%</th>';
+            echo '<th class="table_interest_head">Interest</th>';
+            echo '<th>Amount</th>';
+            echo '<th>Max</th>';
+            echo '</tr>';
+        }
     ?>
-    <?php foreach ($Loans as $Loan){
-$totalLoanAmount += $Loan->getAmount();
-    $totalLoanMaxAmount += $Loan->getMaxAmount();
-    if ($Loan->getId()) {
-    $submitButtonText = 'Update';
+    <?php foreach ($Loans as $Loan):
+        $totalLoanAmount += $Loan->getAmount();
+        $totalLoanMaxAmount += $Loan->getMaxAmount();
+        if ($Loan->getId()):
+            $submitButtonText = 'Update';
+            $percentBarPx = (-120 - ($Loan->getPercentPaid()*-120)/100)+1;
+    ?>
 
-    echo '
     <tr>
-        <form action="index.php" method="post" name="' . $Loan->getId() .'">';
-            echo '<input type="hidden" name="loanId" value="' . $Loan->getId() .'">';
-            echo '
-            <td class="tabletext"><input class="input_name" type="text" name="name"
-                                         value="' . $Loan->getName() . '"></td>
-            ';
-            echo '
-            <td class="tabletext"><img src="html/images/percentImage.png" alt="sup?"
-                                       class="percentImage" style="background-position: ';
-    echo (-120 - ($Loan->getPercentPaid()*-120)/100)+1 . 'px 0pt;"/></td>
-            ';
-            echo '
-            <td class="table_interest"><input class="input_interest" type="text" name="interest"
-                                              value="' . $Loan->getInterest() . '"></td>
-            ';
-            echo '
-            <td class="tabletext"><input class="input_amount" type="text" name="amount"
-                                         value="' . $Loan->getAmount() . '"></td>
-            ';
-            echo '
-            <td class="table_max_amount_text">' . number_format($Loan->getMaxAmount()) . '</td>
-            ';
-            echo '
-            <td class="tabletext"><input type="submit" name="Submit" value="' . $submitButtonText . '">
+        <form action="index.php" method="post" name="<?php echo $Loan->getId();?>">
+            <input type="hidden" name="loanId" value="<?php echo $Loan->getId();?>">
+            <td class="tabletext">
+                <input class="input_name" type="text" name="name" value="<?php echo $Loan->getName();?>">
+
             </td>
-            ';
-            echo '
-            <!--<td class="tabletext"><input type="image" onclick="" src="html/images/Xion18x18.gif" alt="Angry face"-->
-                                         <!--name="delete" value="delete"/>-->
-            <!--</td>-->
-            <td class="tabletext" id="' . $Loan->getId() .'" >
-                <img class="delete" src="html/images/Xion18x18.gif"  alt="Angry face"
-                                         name="delete" value="delete" />
+            <td class="tabletext">
+                <img src="html/images/percentImage.png" alt="sup?" class="percentImage" style="background-position: <?php echo $percentBarPx; ?>px 0pt;"/>
+            </td>
+            <td class="table_interest">
+                <input class="input_interest" type="text" name="interest" value="<?php echo $Loan->getInterest();?>">
+            </td>
+            <td class="tabletext">
+                <input class="input_amount" type="text" name="amount" value="<?php echo $Loan->getAmount();?>">
+            </td>
+            <td class="table_max_amount_text">
+                <?php echo number_format($Loan->getMaxAmount())?>
+            </td>
+            <td class="tabletext">
+                <input type="submit" name="Submit" value="<?php echo $submitButtonText;?>">
+            </td>
+            <td class="tabletext" id="<?php echo $Loan->getId();?>" >
+                <img class="delete" src="html/images/Xion18x18.gif"  alt="Angry face" name="delete" value="delete" />
             </td>
         </form>
     </tr>
-    ';
-    }
-    echo '
-</table>';
-echo'<table class="table">';
-    }
-    ?>
+    <?php endif;?>
+</table>
+    <table class="table">
+    <?php endforeach; ?>
     <th>Create a New Loan</th>
     <?php
 foreach ($Loans as $Loan){
