@@ -94,7 +94,7 @@ class MainPage
     }
 
 
-    private function _handleDeleteLoanButton($post)
+    public function _handleDeleteLoanButton($post)
     {
      // Delete Loan button pressed
         if (isset($post['delete']) && $post['delete'] == 'delete') {
@@ -117,7 +117,7 @@ class MainPage
         return (isset($get['reset']));
     }
 
-    private function _getLoanToUpdate ($loanId)
+    private function _getLoanToUpdate($loanId)
     {
         if (isset($loanId) && $loanId > 0) {
             $Loan = $this->_Factory->buildLoan($loanId);

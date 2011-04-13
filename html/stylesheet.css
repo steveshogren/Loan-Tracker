@@ -240,6 +240,17 @@ a {
     height: 200px;
 }
 
+.sitename {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    text-align: left;
+    float: left;
+    color: white;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
 .bottom-box1 {
     width: 205px;
     border-right: 1px solid #D1D1D1;
@@ -249,8 +260,14 @@ a {
 }
 
 .bottom-box1-inside {
-    width: 192px;
+    width: 280px;
     height: auto;
+    margin: 0px auto;
+}
+
+.selectedRow2 {
+  background-color: #ffcc33;
+  cursor: pointer;
 }
 
 .bottom-box-th {
@@ -378,6 +395,7 @@ a {
 .tables {
     float: left;
     width: 640px; /*background-color: #FFFFFF;*/
+    height: 100%
 /*border:3px solid #57B121;*/
 /*margin:3px;*/
 /*padding:3px;*/

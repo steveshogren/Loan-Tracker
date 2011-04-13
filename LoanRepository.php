@@ -13,6 +13,9 @@ class LoanRepository {
         }
     }
 
+    /**
+     * @return Loan[]
+     */
     public function getAllLoans() {
         $sql_sort = $this->_getSortOrder();
 

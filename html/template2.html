@@ -2,41 +2,63 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+    <script type="text/javascript" src="html/jquery.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('img.delete').bind('click', function(){
+                if (confirm('Do you really want to delete this loan?')) {
+//                $(this).closest('tr').hide('slow');
+//                    alert($(this).closest('td').attr("id")); // finds the loan id
+                    $(this).closest('tr').animate({ height: 'hide', opacity: 'hide' }, 'slow');
+                    $.post("deleteLoan.php", {loanId: $(this).closest('td').attr("id")},
+                            function(xml) {
+//                                cdg_m\" style=\"height:".$margin_level."px\"
+                                // format and output result
+//                                alert($("marginLevel", xml).text());
+//                                alert($("totalLoanMaxAmount", xml).text());
+//                                alert($("totalLoanAmount", xml).text());
+//                                $("#cdg_m").attr('style' $("marginLevel", xml).text()
+//                                $("#cdg_m").attr('style', "height:5px");
+                                $("#cdg_m").animate({ height: $("marginLevel", xml).text()}, 'slow');
+//                                $("#goaltext").animate({ $(elem).css('marginRight'): $("marginLevel", xml).text()}, 'slow');
+                                $("#cdg_h2").html("Payoff Percentage: " + $("percentPaid", xml).text() + "%");
+                            }
+                    );
+                }
+//
+
+
+            });
+//             $('table').mouseenter(function() {
+//                 $(this).addClass('selectedRow2');
+//                 $(this).children().addClass('selectedRow2');
+//             }).mouseleave(function() {
+//                 $(this).removeClass('selectedRow2');
+//                 $(this).children().removeClass('selectedRow2');
+//             });
+        });
+    </script>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
-    <title>Nautica X1 by STUDIO7DESIGNS</title>
+    <title>Break These Chains</title>
     <link href="html/stylesheet.css" rel="stylesheet" type="text/css" media="screen"/>
-    <SCRIPT LANGUAGE="Javascript">
-//        function decision(message, url){
-//            if(confirm(message)) location.href = url;
-//        }
-
-//        function delete(formName)
-//        {
-//            document.formName.submit();
-//        }
-
-</SCRIPT>
 </head>
 
 <body>
 <div class="main">
 <div class="header">
     <div class="header-top">
-        <div class="search-box">
-            <!--<span></span>-->
-            <!--Break These Chains-->
-            <input name="textfield" type="text" class="search-input"/>
+        <span class="sitename">Break These Chains</span>
+        <div class="login-bg">
+            <form action="index.php" method="post" name="logout">
+                <a href='index.php?logout=true' class="white-link">Logout</a>
+            </form>
         </div>
-        <div class="login-bg"><a href="#" class="white-link">Login</a> :: <a href="#" class="white-link">Site
-            map</a></div>
     </div>
     <div class="header-bottom">
         <div id="navcontainer">
             <ul class="navlist">
-                <li class="active"><a href="#">Visit</a></li>
-                <li class=""><a href="#">RSS</a></li>
-                <!--<li class=""><a href="#">Plan</a></li>-->
-                <!--<li class=""><a href="#">Share</a></li>-->
+                <li class="active"><a href="index.php">Home</a></li>
+                <li class=""><a href="about.php">About</a></li>
             </ul>
         </div>
     </div>
@@ -110,8 +132,13 @@ $totalLoanAmount += $Loan->getAmount();
             </td>
             ';
             echo '
-            <td class="tabletext"><input type="image" onclick="" src="html/images/Xion18x18.gif" alt="Angry face"
-                                         name="delete" value="delete"/></td>
+            <!--<td class="tabletext"><input type="image" onclick="" src="html/images/Xion18x18.gif" alt="Angry face"-->
+                                         <!--name="delete" value="delete"/>-->
+            <!--</td>-->
+            <td class="tabletext" id="' . $Loan->getId() .'" >
+                <img class="delete" src="html/images/Xion18x18.gif"  alt="Angry face"
+                                         name="delete" value="delete" />
+            </td>
         </form>
     </tr>
     ';
@@ -152,8 +179,14 @@ if (! $Loan->getId()) {
             </td>
             ';
             echo '
-            <td class="tabletext"><input type="image" src="html/images/Xion18x18.gif" alt="Angry face"
-                                         name="delete" value="delete"/></td>
+            <!--<td class="tabletext">-->
+                <!--<input type="image" src="html/images/Xion18x18.gif" alt="Angry face"-->
+                                         <!--name="delete" value="delete"/>-->
+            <!--</td>-->
+            <td class="tabletext">
+                <img src="html/images/Xion18x18.gif" alt="Angry face"
+                                         name="delete" value="delete"/>
+            </td>
         </form>
     </tr>
     ';
@@ -186,12 +219,12 @@ if (! $Loan->getId()) {
     <div id="sideheader">Payoff Stats</div>
     <div id="sidecontent">
         <p title='Interest saved based on a 10 year loan compounded monthly. Meant for motivation only!'>
-            $<?php echo (floor($paymentPerDay) * 7) ?>
+            $<?php echo ($paymentPerWeek) ?>
                     <span class="sidebarpayment">
                         Avg. Per Week
                     </span>
             <br/>
-            $<?php echo (floor($paymentPerDay) * 30)?>
+            $<?php echo ($paymentPerMonth)?>
                     <span class="sidebarpayment">
                         Avg. Per Month
                     </span>

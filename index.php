@@ -45,7 +45,7 @@ class DirectInput
             }
 
             if (! $this->_loggedIn()) {
-                include 'html/login.php';
+                include 'html/login2.php';
             } else {
                 $this->_displayMainPage();
             }
@@ -68,10 +68,12 @@ class DirectInput
         $MainPage->handleInput($_GET, $_POST);
 
         if (! $this->_loggedIn()) {
-            include 'html/login.php';
+            include 'html/login2.php';
         } else {
             $PayoffCalc = $Factory->buildPayoffCalc();
             $paymentPerDay = $PayoffCalc->getPaymentPerDay();
+            $paymentPerMonth = floor($paymentPerDay) * 30;
+            $paymentPerWeek = floor($paymentPerDay) * 7;
 
             $Loans = $LoanRepository->getAllLoans();
             // add in an empty Loan class (that has an Id)

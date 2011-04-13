@@ -108,7 +108,7 @@ if ( $margin_level == 300 ) {
     <p title=\"So far we&#8217;ve paid off "
     .$currency."".number_format($paidOff)." or "
     .$percentagePaid."% of the total of ".$currency.""
-    .$goal_level." - Mr. Roboto\" style=\"margin-bottom:"
+    .$goal_level." - Mr. Robot\" style=\"margin-bottom:"
     .$margin_level."px;\" id=\"cdg_p\"><span class=\"blind\">"
     .$goal_blind."</span> ".@$goal_met."  ".$currency.""
     .number_format($paidOff)." ".$goal_met2."</p>
