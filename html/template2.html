@@ -45,8 +45,6 @@
 </div>
 <div class="body-main">
 <div class="body-bottom">
-
-
 <div class="tables">
 
 <?php
@@ -58,17 +56,15 @@
     }
 ?>
 <table class="table">
-    <?php
-        if ($displayLoans) {
-            echo '<tr>';
-            echo '<th>Loan Name</th>';
-            echo '<th>%</th>';
-            echo '<th class="table_interest_head">Interest</th>';
-            echo '<th>Amount</th>';
-            echo '<th>Max</th>';
-            echo '</tr>';
-        }
-    ?>
+    <?php if ($displayLoans) : ?>
+            <tr>
+            <th>Loan Name</th>
+            <th>%</th>
+            <th class="table_interest_head">Interest</th>
+            <th>Amount</th>
+            <th>Max</th>
+            </tr>
+    <?php endif; ?>
     <?php foreach ($Loans as $Loan):
         $totalLoanAmount += $Loan->getAmount();
         $totalLoanMaxAmount += $Loan->getMaxAmount();
@@ -155,15 +151,15 @@
     <div id="sideheader">Payoff Stats</div>
     <div id="sidecontent">
         <p title='Interest saved based on a 10 year loan compounded monthly. Meant for motivation only!'>
-            $<?php echo ($paymentPerWeek) ?>
-                    <span class="sidebarpayment">
-                        Avg. Per Week
-                    </span>
+            $<?php echo ($paymentPerWeek); ?>
+            <span class="sidebarpayment">
+                Avg. Per Week
+            </span>
             <br/>
-            $<?php echo ($paymentPerMonth)?>
-                    <span class="sidebarpayment">
-                        Avg. Per Month
-                    </span>
+            $<?php echo ($paymentPerMonth); ?>
+            <span class="sidebarpayment">
+                Avg. Per Month
+            </span>
             <br/>
             <?php
                 if($PayoffCalc->getPayoffDate()) {
@@ -180,7 +176,7 @@
                 echo $totalSaved;
             ?>
             <span class="sidebarpayment">
-            Estimated Interest Saved
+                Estimated Interest Saved
             </span>
         </p>
         <a href='index.php?reset=true'>Reset</a> Stats
