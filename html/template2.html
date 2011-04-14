@@ -110,72 +110,48 @@
     <?php endforeach; ?>
     <th>Create a New Loan</th>
     <?php
-foreach ($Loans as $Loan){
-if (! $Loan->getId()) {
-    $submitButtonText = 'Create';
+        foreach ($Loans as $Loan) :
+        if (! $Loan->getId()) :
+            $submitButtonText = 'Create';
+    ?>
 
-    echo '
     <tr>
-        <form action="index.php" method="post" name="' . $Loan->getId() .'">';
-            echo '<input type="hidden" name="loanId" value="' . $Loan->getId() .'">';
-            echo '
-            <td class="tabletext"><input class="input_name" type="text" name="name"
-                                         value="' . $Loan->getName() . '"></td>
-            ';
-            echo '
-            <td class="tabletext"><input class="input_new_interest" type="text" name="interest"
-                                         value="' . $Loan->getInterest() . '"></td>
-            ';
-            echo '
-            <td class="tabletext"><input class="input_new_amount" type="text" name="amount"
-                                         value="' . $Loan->getAmount() . '"></td>
-            ';
-            echo '
-            <td class="tabletext"><input class="input_new_amount" type="text" name="max_amount"
-                                         value="' . $Loan->getMaxAmount() . '"></td>
-            ';
-            echo '
-            <td class="tabletext"><input type="submit" name="Submit" value="' . $submitButtonText . '">
+        <form action="index.php" method="post" name="<?php echo $Loan->getId();?>">
+            <input type="hidden" name="loanId" value="<?php echo $Loan->getId();?>">
+            <td class="tabletext">
+                <input class="input_name" type="text" name="name"
+                                         value="<?php echo $Loan->getName();?>">
             </td>
-            ';
-            echo '
-            <!--<td class="tabletext">-->
-                <!--<input type="image" src="html/images/Xion18x18.gif" alt="Angry face"-->
-                                         <!--name="delete" value="delete"/>-->
-            <!--</td>-->
+            <td class="tabletext">
+                <input class="input_new_interest" type="text" name="interest"
+                                         value="<?php echo $Loan->getInterest();?>">
+            </td>
+            <td class="tabletext">
+                <input class="input_new_amount" type="text" name="amount"
+                                         value="<?php echo $Loan->getAmount();?>">
+            </td>
+            <td class="tabletext">
+                <input class="input_new_amount" type="text" name="max_amount"
+                                         value="<?php echo $Loan->getMaxAmount();?>">
+            </td>
+            <td class="tabletext">
+                <input type="submit" name="Submit" value="<?php echo $submitButtonText;?>">
+            </td>
             <td class="tabletext">
                 <img src="html/images/Xion18x18.gif" alt="Angry face"
                                          name="delete" value="delete"/>
             </td>
         </form>
     </tr>
-    ';
-    }
-    }
 
-    ?>
+    <?php endif;?>
+    <?php endforeach;?>
+        
 </table>
 </div>
 
 
 <div class="login-box">
-    <!--<div align="left">Email Address: <br/></div>-->
-    <!--<div><input name="" type="text" class="input-login"/></div>-->
-    <!--<div align="left" style="padding:5px 0px;">Password: <br/></div>-->
-    <!--<div><input name="" type="password" class="input-login"/>-->
-
-    <!--<div style="padding:5px 0px;" align="center">-->
-    <!--<input type="checkbox" name="checkbox" value="checkbox"/>-->
-    <!--Remember Me-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<div>-->
-    <!--<div align="center"><a href="#"><img src="html/images/login-bt.jpg" alt="Login" width="75" height="32"-->
-    <!--border="0"/></a><a href="#"><img src="html/images/sign-up-bt.jpg"-->
-    <!--alt="Sign Up" width="82"-->
-    <!--height="32" border="0"/></a>-->
-    <!--</div>-->
-    <!--</div>-->
     <div id="sideheader">Payoff Stats</div>
     <div id="sidecontent">
         <p title='Interest saved based on a 10 year loan compounded monthly. Meant for motivation only!'>
@@ -189,25 +165,23 @@ if (! $Loan->getId()) {
                         Avg. Per Month
                     </span>
             <br/>
-            <!--<br/>-->
             <?php
-                        if($PayoffCalc->getPayoffDate()) {
-            echo $PayoffCalc->getPayoffDate();
-            $payOffDateText = "Payoff Date<br/>";
-            }
+                if($PayoffCalc->getPayoffDate()) {
+                    echo $PayoffCalc->getPayoffDate();
+                    $payOffDateText = "Payoff Date<br/>";
+                }
             ?>
-                    <span class="sidebarpayment">
-                        <?php echo $payOffDateText;?>
-                    </span>
-            <!--<br/>-->
+            <span class="sidebarpayment">
+                <?php echo $payOffDateText;?>
+            </span>
             $<?php
-                        $InterestSaved = $Factory->buildInterestSaved();
-            $totalSaved = number_format($InterestSaved->getTotalInterestSaved());
-            echo $totalSaved;
+                $InterestSaved = $Factory->buildInterestSaved();
+                $totalSaved = number_format($InterestSaved->getTotalInterestSaved());
+                echo $totalSaved;
             ?>
-                    <span class="sidebarpayment">
-                    Estimated Interest Saved
-                    </span>
+            <span class="sidebarpayment">
+            Estimated Interest Saved
+            </span>
         </p>
         <a href='index.php?reset=true'>Reset</a> Stats
 
