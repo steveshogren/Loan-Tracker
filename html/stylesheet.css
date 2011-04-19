@@ -17,6 +17,10 @@ body {
     background-color: #FFF;
 }
 
+input {
+    font-size: 11px;
+}
+
 a {
     color: #4E69B4;
     text-decoration: none;
@@ -495,6 +499,8 @@ a {
 
 .table .tabletext {
     text-align: center;
+    font-size: 62.5%;
+
 }
 
 .site-name {

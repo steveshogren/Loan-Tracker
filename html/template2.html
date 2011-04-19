@@ -16,6 +16,25 @@
                     );
                 }
             });
+            
+            $("input[class=input_new_amount], input[class=input_name], input[class=input_new_interest]").focus(function(){
+                if (this.defaultValue == this.value) {
+                    $(this).val('');
+                }
+            });
+
+            $("input[class=input_amount], input[class=input_interest]").focus(function(){
+                if (this.defaultValue == this.value) {
+                    $(this).select();
+                }
+            });
+
+            $("input[class=input_new_amount], input[class=input_name], input[class=input_new_interest]").focusout(function(){
+                if (this.value == '') {
+                    $(this).val(this.defaultValue);
+                }
+            });
+
         });
     </script>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
