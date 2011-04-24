@@ -16,8 +16,8 @@ if (isset($_REQUEST["loanId"])) {
     $post['delete'] = "delete";
     $Factory = new Factory();
     $MainPage = new MainPage($Factory);
-//    error_log($post['loanId'] . "   " . $post['delete']);
 
+    // Save the deleted state
     $MainPage->_handleDeleteLoanButton($post);
 
     $LoanRepository = $Factory->buildLoanRepository();
@@ -35,12 +35,29 @@ if (isset($_REQUEST["loanId"])) {
     $current_level = (($totalLoanAmount / $totalLoanMaxAmount) * 100);
     $exact_level = 100-round($current_level);
 
+    // Payment averages
+    $PayoffCalc = $Factory->buildPayoffCalc();
+    $paymentPerDay = $PayoffCalc->getPaymentPerDay();
+    $paymentPerMonth = floor($paymentPerDay) * 30;
+    $paymentPerWeek = floor($paymentPerDay) * 7;
+
+    // Payoff Date
+    $payoffDate = ($PayoffCalc->getPayoffDate()) ? $PayoffCalc->getPayoffDate() : "";
+
+    // Interest Saved
+    $InterestSaved = $Factory->buildInterestSaved();
+    $totalInterestSaved = number_format($InterestSaved->getTotalInterestSaved());
+
     $xml = "
         <averages>
             <totalLoanAmount>$totalLoanAmount</totalLoanAmount>
             <totalLoanMaxAmount>$totalLoanMaxAmount</totalLoanMaxAmount>
             <marginLevel>$marginPx</marginLevel>
             <percentPaid>$exact_level</percentPaid>
+            <averagePerWeek>$paymentPerWeek</averagePerWeek>
+            <averagePerMonth>$paymentPerMonth</averagePerMonth>
+            <payoffDate>$payoffDate</payoffDate>
+            <interestSaved>$totalInterestSaved</interestSaved>
         </averages>
     ";
     header('Content-type: text/xml');

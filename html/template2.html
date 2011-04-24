@@ -12,6 +12,8 @@
                             function(xml) {
                                 $("#cdg_m").animate({ height: $("marginLevel", xml).text()}, 'slow');
                                 $("#cdg_h2").html("Payoff Percentage: " + $("percentPaid", xml).text() + "%");
+                                $("#payoffDate").html($("payoffDate", xml).text());
+                                $("#interestSaved").html($("interestSaved", xml).text());
                             }
                     );
                 }
@@ -170,30 +172,23 @@
     <div id="sideheader">Payoff Stats</div>
     <div id="sidecontent">
         <p title='Interest saved based on a 10 year loan compounded monthly. Meant for motivation only!'>
-            $<?php echo ($paymentPerWeek); ?>
-            <span class="sidebarpayment">
-                Avg. Per Week
-            </span>
+            <span id="averagePerWeek">$<?php echo ($paymentPerWeek); ?></span>
+            <span class="sidebarpayment">Avg. Per Week</span>
             <br/>
-            $<?php echo ($paymentPerMonth); ?>
-            <span class="sidebarpayment">
-                Avg. Per Month
-            </span>
+            <span id="averagePerMonth"><?php echo ($paymentPerMonth); ?></span>
+            <span class="sidebarpayment">Avg. Per Month</span>
             <br/>
             <?php
-                if($PayoffCalc->getPayoffDate()) {
-                    echo $PayoffCalc->getPayoffDate();
-                    $payOffDateText = "Payoff Date<br/>";
-                }
+                $payoffDate = ($PayoffCalc->getPayoffDate()) ? $PayoffCalc->getPayoffDate() : "";
             ?>
-            <span class="sidebarpayment">
-                <?php echo $payOffDateText;?>
-            </span>
-            $<?php
+            <span id="payoffDate"><?php echo ($payoffDate); ?></span>
+            <span class="sidebarpayment">Payoff Date</span>
+            <br/>
+            <?php
                 $InterestSaved = $Factory->buildInterestSaved();
                 $totalSaved = number_format($InterestSaved->getTotalInterestSaved());
-                echo $totalSaved;
             ?>
+            $<span id="interestSaved"><?php echo $totalSaved; ?></span>
             <span class="sidebarpayment">
                 Estimated Interest Saved
             </span>
