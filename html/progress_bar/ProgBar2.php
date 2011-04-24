@@ -29,7 +29,6 @@
     $velocityText = $Velocity->getVelocity();
 // End editable variables
 ######################################################
-echo( "<!--donation gauge begin-->" );
 
 // First step is to do a little math (our current amount divided by our goal level x 100 to get a % or current level)
    @$current_level = ( ($current_amt / $goal_level) * 100 );
@@ -86,47 +85,40 @@ $goal_none = "Hello. To add a loan, just enter the values to your left, "
     . "and click 'Create'.";
 
 // Here we echo the box it all comes in and we pass some variables.
-echo( '<div id="cdg-shell">
-  <h2 id="cdg_h2">'.$donate_head.'</h2>' );
+?>
+<div id="cdg-shell">
+  <h2 id="cdg_h2"><?php echo ($donate_head);?></h2>
 
-// Goal status marker plus or the Goal met text... thanks!
-$goal_met2 = "or&nbsp;".$percentagePaid."%&nbsp;<span class=\"cdg_arw\">&rarr;</span>";
+<?php $goal_met2 = "or&nbsp;".$percentagePaid."%&nbsp;<span class=\"cdg_arw\">&rarr;</span>";
 if ( $margin_level == 300 ) {
     $goal_met = "<strong>".$goal_got."";
     $goal_met2 = "".$goal_thanks."</strong>";
-
-// Else nothing, the margin level stays as is (typically 0)
 } else {
     $margin_level = "$margin_level";
 }
 
 // And here is the guage body if we have a goal to meet
    $paidOff = $goal_level - $current_amt;
-   $gauge_body = "
-<p id=\"cdg_goal\">".$goal_line.": ".$currency."".number_format($current_amt)."</p>
-  <div id=\"cdg\">
-    <p title=\"So far we&#8217;ve paid off "
-    .$currency."".number_format($paidOff)." or "
-    .$percentagePaid."% of the total of ".$currency.""
-    .$goal_level." - Mr. Robot\" style=\"margin-bottom:"
-    .$margin_level."px;\" id=\"cdg_p\"><span class=\"blind\">"
-    .$goal_blind."</span> ".@$goal_met."  ".$currency.""
-    .number_format($paidOff)." ".$goal_met2."</p>
-    <div id=\"cdg_m\" style=\"height:".$margin_level."px\"></div>
-       <img src=\"html/progress_bar/cdg_tmom_clear.gif\" width=\"60\" height=\"300\" alt=\"\" />
-  </div>";
-
-// Here it is displayed, the gauge body, or none, all depends on if we have a goal
-if ( $goal_level != 0 ) {
-    echo ''.$gauge_body.'';
-} else {
-    echo '<div id="cdg-noshell">';
-    echo '<p id="cdg_no">' . $goal_none . '</p>';
-    echo '</div>';
-}
-    echo "</div>
-<!--donation gauge output end-->";
 ?>
+<?php if ( $goal_level != 0 ) : ?>
+    <p id="cdg_goal"><?php echo ($goal_line . ": " . $currency . "" . number_format($current_amt));?></p>
+
+    <div id="cdg">
+        <p title="So far you've paid off <?php echo $currency . number_format($paidOff); ?> or <?php echo ($percentagePaid);?> % of the total of <?php echo (""
+            . $currency . $goal_level); ?>" style="margin-bottom: <?php echo ($margin_level);?>px;"
+            id="cdg_p">
+             <span class="blind"><?php echo ($goal_blind); ?></span>
+             <?php echo (@$goal_met . "  " . $currency . number_format($paidOff) . " " . $goal_met2); ?>
+        </p>
+        <div id="cdg_m" style="height: <?php echo ($margin_level); ?>px"></div>
+        <img src="html/progress_bar/cdg_tmom_clear.gif" width="60" height="300" alt="" />
+    </div>
+<?php else : ?>
+    <div id="cdg-noshell">
+        <p id="cdg_no"><?php echo ($goal_none); ?></p>
+    </div>
+<?php endif; ?>
+</div>
 
 
 
