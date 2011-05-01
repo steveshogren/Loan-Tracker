@@ -11,14 +11,24 @@ set_include_path(
 $GLOBALS['testing'] = true;
 
 if (isset($_REQUEST["loanId"])) {
-
-    $post['loanId'] = $_REQUEST["loanId"];
-    $post['delete'] = "delete";
     $Factory = new Factory();
     $MainPage = new MainPage($Factory);
 
+    $post['loanId'] = $_REQUEST["loanId"];
+    $post['Submit'] = "true";
+
+    $post['name'] = preg_replace('/[^a-zA-Z0-9 \-\_]/', '', $_REQUEST['name']);
+    $post['interest'] = $MainPage->cleanDecimalNumber($_REQUEST['interest']);
+    $post['amount'] = $MainPage->cleanDecimalNumber($_REQUEST['amount']);
+
+    error_log("-----------------ERROR---------------------");
+    error_log("loanId: " . $post['loanId']);
+    error_log("Name: " . $post['name']);
+    error_log("interest: " . $post['interest']);
+    error_log("amoutn: " . $post['amount']);
+
     // Save the deleted state
-    $MainPage->_handleDeleteLoanButton($post);
+    $MainPage->_handleUpdateLoan($post);
 
     $LoanRepository = $Factory->buildLoanRepository();
     $totalLoanAmount = 0;

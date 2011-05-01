@@ -8,17 +8,30 @@
             $('img.delete').bind('click', function(){
                 if (confirm('Do you really want to delete this loan?')) {
                     $(this).closest('tr').animate({ height: 'hide', opacity: 'hide' }, 'slow');
-                    $.post("deleteLoan.php", {loanId: $(this).closest('td').attr("id")},
-                            function(xml) {
-                                $("#cdg_m").animate({ height: $("marginLevel", xml).text()}, 'slow');
-                                $("#cdg_h2").html("Payoff Percentage: " + $("percentPaid", xml).text() + "%");
-                                $("#payoffDate").html($("payoffDate", xml).text());
-                                $("#interestSaved").html($("interestSaved", xml).text());
-                            }
-                    );
+                    $.post("deleteLoan.php", {loanId: $(this).closest('td').attr("id")}, function(xml) { updatePage(xml); } );
                 }
             });
-            
+
+//            $("form#update").submit(function() {
+//                $.post(
+//                        "updateLoan.php",
+//                        {loanId: $('#loanId').attr('value'),
+//                            name: $('#loanName').attr('value'),
+//                            amount: $('#loanAmount').attr('value'),
+//                            interest: $('#loanInterest').attr('value')
+//                        },
+//                        function(xml) { updatePage(xml); }
+//                );
+//                return false;
+//            });
+
+            function updatePage (xml) {
+                $("#cdg_m").animate({ height: $("marginLevel", xml).text()}, 'slow');
+                $("#cdg_h2").html("Payoff Percentage: " + $("percentPaid", xml).text() + "%");
+                $("#payoffDate").html($("payoffDate", xml).text());
+                $("#interestSaved").html($("interestSaved", xml).text());
+            }
+
             $("input[class=input_new_amount], input[class=input_name], input[class=input_new_interest]").focus(function(){
                 if (this.defaultValue == this.value) {
                     $(this).val('');
@@ -84,6 +97,8 @@
             <th class="table_interest_head">Interest</th>
             <th>Amount</th>
             <th>Max</th>
+            <th>Update</th>
+            <th>Delete</th>
             </tr>
     <?php endif; ?>
     <?php foreach ($Loans as $Loan):
@@ -94,38 +109,45 @@
             $percentBarPx = (-120 - ($Loan->getPercentPaid()*-120)/100)+1;
     ?>
 
-    <tr>
-        <form action="index.php" method="post" name="<?php echo $Loan->getId();?>">
-            <input type="hidden" name="loanId" value="<?php echo $Loan->getId();?>">
+    <form action="index.php" method="post" name="update" id="update">
+        <tr>
+        <!--<form action="index.php" method="post" name="<?php echo $Loan->getId();?>" id="update">-->
+            <input id="loanId" type="hidden" name="loanId" value="<?php echo $Loan->getId();?>">
             <td class="tabletext">
-                <input class="input_name" type="text" name="name" value="<?php echo $Loan->getName();?>">
+                <input id="loanName" class="input_name" type="text" name="name" value="<?php echo $Loan->getName();?>">
 
             </td>
             <td class="tabletext">
                 <img src="html/images/percentImage.png" alt="sup?" class="percentImage" style="background-position: <?php echo $percentBarPx; ?>px 0pt;"/>
             </td>
             <td class="table_interest">
-                <input class="input_interest" type="text" name="interest" value="<?php echo $Loan->getInterest();?>">
+                <input id="loanInterest" class="input_interest" type="text" name="interest" value="<?php echo $Loan->getInterest();?>">
             </td>
             <td class="tabletext">
-                <input class="input_amount" type="text" name="amount" value="<?php echo $Loan->getAmount();?>">
+                <input id="loanAmount" class="input_amount" type="text" name="amount" value="<?php echo $Loan->getAmount();?>">
             </td>
             <td class="table_max_amount_text">
                 <?php echo number_format($Loan->getMaxAmount())?>
             </td>
             <td class="tabletext">
-                <input type="submit" name="Submit" value="<?php echo $submitButtonText;?>">
+                <!--<input type="submit" name="Submit" value="<?php echo $submitButtonText;?>">-->
+                <input type="hidden" name="Submit" value="<?php echo $Loan->getId();?>">
+                <input type="image" class="update" title="Update" src="html/accept.png"/>
             </td>
             <td class="tabletext" id="<?php echo $Loan->getId();?>" >
-                <img class="delete" src="html/images/Xion18x18.gif"  alt="Angry face" name="delete" value="delete" />
+                <img class="delete" src="html/delete.png"  title="Delete" alt="Delete" name="delete" value="delete" />
             </td>
-        </form>
-    </tr>
+        </tr>
+    </form>
     <?php endif;?>
-</table>
-    <table class="table">
     <?php endforeach; ?>
+</table>
+<table class="table">
     <th>Create a New Loan</th>
+    <th class="table_interest_head">Interest</th>
+    <th>Amount</th>
+    <th>Max</th>
+    <th>Create</th>
     <?php
         foreach ($Loans as $Loan) :
         if (! $Loan->getId()) :
@@ -133,8 +155,8 @@
     ?>
 
     <tr>
-        <form action="index.php" method="post" name="<?php echo $Loan->getId();?>">
-            <input type="hidden" name="loanId" value="<?php echo $Loan->getId();?>">
+        <form action="index.php" method="post" name="<?php echo $Loan->getId();?>" class="update">
+        <input type="hidden" name="loanId" value="<?php echo $Loan->getId();?>">
             <td class="tabletext">
                 <input class="input_name" type="text" name="name"
                                          value="<?php echo $Loan->getName();?>">
@@ -152,13 +174,11 @@
                                          value="<?php echo $Loan->getMaxAmount();?>">
             </td>
             <td class="tabletext">
-                <input type="submit" name="Submit" value="<?php echo $submitButtonText;?>">
+                <input type="hidden" name="Submit" value="<?php echo $submitButtonText;?>">
+                <input type="image" class="create" title="Create" src="html/add.png"/>
+                <!--<input type="submit" name="Submit" value="<?php echo $submitButtonText;?>">-->
             </td>
-            <td class="tabletext">
-                <img src="html/images/Xion18x18.gif" alt="Angry face"
-                                         name="delete" value="delete"/>
-            </td>
-        </form>
+    </form>
     </tr>
 
     <?php endif;?>

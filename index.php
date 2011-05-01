@@ -55,10 +55,6 @@ class DirectInput
         }
     }
 
-    /**
-     * @param Factory
-     * @param LoanRepository
-     */
     private function _displayMainPage ()
     {
         $Factory = new Factory();
