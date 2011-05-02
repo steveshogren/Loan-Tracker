@@ -12,23 +12,19 @@ class Authenticator
 
     public function __construct()
     {
-        $db = 'loan_test';
-
         if (isset($GLOBALS['testing']) && $GLOBALS['testing'] == true) {
-            $db = 'loan_test';
             $conArray = array(
                 'host'     => 'localhost',
                 'username' => 'root',
                 'password' => 'mysql',
-                'dbname'   => $db
+                'dbname'   => 'loan_test'
             );
         } else {
-            $db = 'loansite';
             $conArray = array(
-                'host'     => 'loansite.cautionawesome.com',
-                'username' => 'loansite',
-                'password' => 'ba7tacR',
-                'dbname'   => $db
+                'host'     => DatabaseString::getDatabaseHost(),
+                'username' => DatabaseString::getDatabaseUsername(),
+                'password' => DatabaseString::getDatabasePassword(),
+                'dbname'   => 'loansite'
             );
         }
 

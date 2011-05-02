@@ -11,12 +11,11 @@ class Factory
             } else {
                 $db = 'loansite';
                 $this->_Dbh = new PDO(
-                    "mysql:host=;dbname={$db}",
-                    '',
-                    ''
+                    "mysql:host=".DatabaseString::getDatabaseHost().";dbname={$db}",
+                    DatabaseString::getDatabaseUsername(),
+                    DatabaseString::getDatabasePassword()
                 );
             }
-
         }
 
     }
@@ -42,10 +41,6 @@ class Factory
         return new PaymentRepository($this->_Dbh, $this);
     }
 
-    /**
-     * @param $loanId
-     * @return Loan
-     */
     public function buildLoan($loanId = 0)
     {
         return new Loan($this->_Dbh, $loanId);
