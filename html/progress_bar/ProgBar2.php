@@ -82,17 +82,21 @@ $goal_thanks=   "...get to work!";           // Thanks (need we say more? no roo
 $goal_blind=    "Thanks to you we&#8217;re at"; // This is the non-visual line
                                     // This last line is the no fundraiser text (the link is below, though)
 $goal_none = "Hello. To add a loan, just enter the values to your left, "
-    . "and click 'Create'.";
+    . "and click the 'Create' button.";
 
 // Here we echo the box it all comes in and we pass some variables.
+?>
+<?php
+    $currentAmount = number_format($current_amt);
+    $percentageLeft = 100 - $percentagePaid;
 ?>
 <div id="cdg-shell">
   <h2 id="cdg_h2"><?php echo ($donate_head);?></h2>
 
-<?php $goal_met2 = "or&nbsp;".$percentagePaid."%&nbsp;<span class=\"cdg_arw\">&rarr;</span>";
+<?php $goal_met2 = "or <span id=\"percentageLeft1\">" . $percentageLeft . "</span>% <span class=\"cdg_arw\">&rarr;</span>";
 if ( $margin_level == 300 ) {
-    $goal_met = "<strong>".$goal_got."";
-    $goal_met2 = "".$goal_thanks."</strong>";
+    $goal_met = "<strong>" . $goal_got;
+    $goal_met2 = $goal_thanks . "</strong>";
 } else {
     $margin_level = "$margin_level";
 }
@@ -101,14 +105,16 @@ if ( $margin_level == 300 ) {
    $paidOff = $goal_level - $current_amt;
 ?>
 <?php if ( $goal_level != 0 ) : ?>
-    <p id="cdg_goal"><?php echo ($goal_line . ": " . $currency . "" . number_format($current_amt));?></p>
+    <p id="cdg_goal"><?php echo ($goal_line . ": " . $currency)?><span id="totalLoanAmount"><?php echo $currentAmount;?></span></p>
 
     <div id="cdg">
         <p title="So far you've paid off <?php echo $currency . number_format($paidOff); ?> or <?php echo ($percentagePaid);?> % of the total of <?php echo (""
             . $currency . $goal_level); ?>" style="margin-bottom: <?php echo ($margin_level);?>px;"
             id="cdg_p">
              <span class="blind"><?php echo ($goal_blind); ?></span>
-             <?php echo (@$goal_met . "  " . $currency . number_format($paidOff) . " " . $goal_met2); ?>
+             <?php echo (@$goal_met . "  " . $currency); ?>
+            <span id="totalLoanAmount2"><?php echo $currentAmount;?></span>
+            <?php echo " " . $goal_met2; ?>
         </p>
         <div id="cdg_m" style="height: <?php echo ($margin_level); ?>px"></div>
         <img src="html/progress_bar/cdg_tmom_clear.gif" width="60" height="300" alt="" />

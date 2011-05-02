@@ -28,8 +28,12 @@
             function updatePage (xml) {
                 $("#cdg_m").animate({ height: $("marginLevel", xml).text()}, 'slow');
                 $("#cdg_h2").html("Payoff Percentage: " + $("percentPaid", xml).text() + "%");
+                $("#percentageLeft1").html(100-parseInt($("percentPaid", xml).text()));
                 $("#payoffDate").html($("payoffDate", xml).text());
                 $("#interestSaved").html($("interestSaved", xml).text());
+                $("#totalLoanAmount2").html($("totalLoanAmount", xml).text());
+                $("#totalLoanAmount").html($("totalLoanAmount", xml).text());
+                $("#cdg_p").animate( {marginBottom: $("marginLevel", xml).text()}, 'slow');
             }
 
             $("input[class=input_new_amount], input[class=input_name], input[class=input_new_interest]").focus(function(){
@@ -144,9 +148,9 @@
 </table>
 <table class="table">
     <th>Create a New Loan</th>
-    <th class="table_interest_head">Interest</th>
-    <th>Amount</th>
-    <th>Max</th>
+    <th></th>
+    <th></th>
+    <th></th>
     <th>Create</th>
     <?php
         foreach ($Loans as $Loan) :
@@ -176,7 +180,6 @@
             <td class="tabletext">
                 <input type="hidden" name="Submit" value="<?php echo $submitButtonText;?>">
                 <input type="image" class="create" title="Create" src="html/add.png"/>
-                <!--<input type="submit" name="Submit" value="<?php echo $submitButtonText;?>">-->
             </td>
     </form>
     </tr>
