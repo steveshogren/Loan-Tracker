@@ -25,14 +25,14 @@ class Authenticator
         } else {
             $db = 'loansite';
             $conArray = array(
-                'host'     => 'loansite.cautionawesome.com',
-                'username' => 'loansite',
-                'password' => 'ba7tacR',
+                'host'     => '',
+                'username' => '',
+                'password' => '',
                 'dbname'   => $db
             );
         }
 
-        $this->_staticSalt = '24j^sdf#$^Ccadf*^ggGs7245a3ADFasd5';
+        $this->_staticSalt = '';
         $this->_dbAdapter = new Zend_Db_Adapter_Pdo_Mysql($conArray);
 
         $this->_AuthAdapter = new Zend_Auth_Adapter_DbTable(
