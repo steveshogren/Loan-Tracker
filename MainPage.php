@@ -51,7 +51,7 @@ class MainPage
         }
     }
 
-    private function _handleUpdateLoan($post)
+    public function _handleUpdateLoan($post)
     {
         // update button pressed
         if (isset($post['Submit'])) {
@@ -84,10 +84,12 @@ class MainPage
             }
         }
     }
+
     /**
-     * @param post
+     * @param int $number
+     * @return mixed
      */
-    private function cleanDecimalNumber ($number)
+    public function cleanDecimalNumber($number)
     {
         $cleanNumber = preg_replace('/[^0-9\.]/', '', $number);
         return $cleanNumber;
@@ -96,7 +98,7 @@ class MainPage
 
     public function _handleDeleteLoanButton($post)
     {
-     // Delete Loan button pressed
+        // Delete Loan button pressed
         if (isset($post['delete']) && $post['delete'] == 'delete') {
             $cleanLoanId = preg_replace('/[^0-9]/', '', $post['loanId']);
             $this->_LoanRepo->deleteLoan($cleanLoanId);
