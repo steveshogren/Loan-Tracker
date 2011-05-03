@@ -28,7 +28,7 @@ class Authenticator
             );
         }
 
-        $this->_staticSalt = '';
+        $this->_staticSalt = DatabaseString::getStaticSalt();
         $this->_dbAdapter = new Zend_Db_Adapter_Pdo_Mysql($conArray);
 
         $this->_AuthAdapter = new Zend_Auth_Adapter_DbTable(
