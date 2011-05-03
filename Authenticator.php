@@ -12,10 +12,7 @@ class Authenticator
 
     public function __construct()
     {
-        $db = 'loan_test';
-
         if (isset($GLOBALS['testing']) && $GLOBALS['testing'] == true) {
-            $db = 'loan_test';
             $conArray = array(
                 'host'     => 'localhost',
                 'username' => 'root',
@@ -23,12 +20,11 @@ class Authenticator
                 'dbname'   => $db
             );
         } else {
-            $db = 'loansite';
             $conArray = array(
-                'host'     => '',
-                'username' => '',
-                'password' => '',
-                'dbname'   => $db
+                'host'     => DatabaseString::getDatabaseHost(),
+                'username' => DatabaseString::getDatabaseUsername(),
+                'password' => DatabaseString::getDatabasePassword(),
+                'dbname'   => 'loansite'
             );
         }
 

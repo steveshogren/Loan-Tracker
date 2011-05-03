@@ -11,9 +11,9 @@ class Factory
             } else {
                 $db = 'loansite';
                 $this->_Dbh = new PDO(
-                    "mysql:host=;dbname={$db}",
-                    '',
-                    ''
+                    "mysql:host=".DatabaseString::getDatabaseHost().";dbname={$db}",
+                    DatabaseString::getDatabaseUsername(),
+                    DatabaseString::getDatabasePassword()
                 );
             }
 
