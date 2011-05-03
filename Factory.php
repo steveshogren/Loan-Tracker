@@ -16,7 +16,6 @@ class Factory
                     DatabaseString::getDatabasePassword()
                 );
             }
-
         }
 
     }
@@ -42,10 +41,6 @@ class Factory
         return new PaymentRepository($this->_Dbh, $this);
     }
 
-    /**
-     * @param $loanId
-     * @return Loan
-     */
     public function buildLoan($loanId = 0)
     {
         return new Loan($this->_Dbh, $loanId);

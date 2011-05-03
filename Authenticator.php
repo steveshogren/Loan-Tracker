@@ -17,7 +17,7 @@ class Authenticator
                 'host'     => 'localhost',
                 'username' => 'root',
                 'password' => 'mysql',
-                'dbname'   => $db
+                'dbname'   => 'loan_test'
             );
         } else {
             $conArray = array(
